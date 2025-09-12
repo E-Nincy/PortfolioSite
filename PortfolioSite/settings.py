@@ -122,7 +122,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'portfolio' / 'static']
+# STATICFILES_DIRS = [BASE_DIR / 'portfolio' / 'static']
 
 # Media (uploads, etc.)
 MEDIA_URL = "/media/"
