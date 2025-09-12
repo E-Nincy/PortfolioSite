@@ -15,6 +15,8 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -130,6 +131,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# --- AZURE STORAGE BACKEND ---
+if os.getenv("AZURE_ACCOUNT_NAME"):
+    DEFAULT_FILE_STORAGE = "portfolio.azure_storage_backends.AzureMediaStorage"
+
+MEDIA_URL = f"https://{os.getenv('AZURE_ACCOUNT_NAME')}.blob.core.windows.net/{os.getenv('AZURE_CONTAINER')}/"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -143,10 +150,3 @@ REST_FRAMEWORK = {
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net']
-
-if os.getenv("AZURE_ACCOUNT_NAME"):
-    DEFAULT_FILE_STORAGE = "storages.backends.azure_storage.AzureStorage"
-
-    AZURE_ACCOUNT_NAME = os.getenv("AZURE_ACCOUNT_NAME")
-    AZURE_ACCOUNT_KEY = os.getenv("AZURE_ACCOUNT_KEY")
-    AZURE_CONTAINER = os.getenv("AZURE_CONTAINER")
