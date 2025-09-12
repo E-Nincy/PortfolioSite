@@ -4,7 +4,6 @@ __pycache__/
 
 # Django
 /staticfiles/
-/media/
 
 # VSCode, OS
 .vscode/
