@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from portfolio.azure_storage_backends import AzureMediaStorage
 import dj_database_url
 
 load_dotenv()
@@ -132,8 +133,10 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # --- AZURE STORAGE BACKEND ---
-if os.getenv("AZURE_ACCOUNT_NAME"):
-    DEFAULT_FILE_STORAGE = "portfolio.azure_storage_backends.AzureMediaStorage"
+DEFAULT_FILE_STORAGE = "portfolio.azure_storage_backends.AzureMediaStorage"
+
+from django.core.files.storage import default_storage as ds
+ds._wrapped = AzureMediaStorage()
 
 MEDIA_URL = f"https://{os.getenv('AZURE_ACCOUNT_NAME')}.blob.core.windows.net/{os.getenv('AZURE_CONTAINER')}/"
 

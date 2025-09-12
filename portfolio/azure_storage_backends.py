@@ -7,3 +7,11 @@ class AzureMediaStorage(AzureStorage):
     azure_container = os.getenv("AZURE_CONTAINER")
     expiration_secs = None
     location = 'media'
+
+    def get_available_name(self, name, max_length=None):
+        """
+        To use always the same name.
+        """
+        if self.exists(name):
+            self.delete(name)
+        return name   
