@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ profile.name }} | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- GENERAL --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #f5f5f5; color: #333; scroll-behavior: smooth; }
+    a { text-decoration: none; }
+
+    /* --- NAVBAR --- */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(30,30,47,0.95);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    nav .logo { font-weight: 700; font-size: 1.5rem; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul li a { color: white; font-weight: 600; transition: color 0.3s; }
+    nav ul li a:hover { color: #00bcd4; }
+
+    /* --- HEADER --- */
+    header {
+      background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1350&q=80');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      text-align: center;
+      padding: 6rem 2rem 4rem 2rem;
+      position: relative;
+    }
+    header::after { content: ''; position: absolute; inset: 0; background: rgba(30,30,47,0.6); z-index: 0; pointer-events: none; }
+    header h1, header p, header .contacts { position: relative; z-index: 1; }
+    header h1 { font-size: 3rem; margin-bottom: 1rem; }
+    header p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 1.5rem; line-height: 1.6; }
+    .contacts { display: flex; justify-content: center; gap: 1.5rem; }
+    .contacts a { display: inline-flex; align-items: center; gap: 0.3rem; color: #00bcd4; font-weight: 600; transition: color 0.3s, transform 0.3s; }
+    .contacts a:hover { color: #ff0000ef; transform: scale(1.1); }
+
+    /* --- MAIN --- */
+    main { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    section { margin-bottom: 4rem; opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    h2 { font-size: 2rem; margin-bottom: 1.5rem; border-bottom: 3px solid #00bcd4; display: inline-block; padding-bottom: 0.3rem; }
+
+    /* --- PROJECTS GRID --- */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 1.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.4s, box-shadow 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(0,188,212,0.2), rgba(255,152,0,0.2));
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+    .project-card:hover { transform: translateY(-8px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+    .project-card:hover::after { opacity: 1; }
+    .project-card h3 { margin-top: 0; color: #1e1e2f; font-size: 1.3rem; }
+    .project-card p { margin: 0.7rem 0 1rem; line-height: 1.5; }
+    .project-image { max-width: 100%; margin-top: 1rem; border-radius: 8px; }
+
+    /* --- BOTÓN VIEW PROJECT --- */
+    .view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0056b3;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      z-index: 9999;
+      pointer-events: auto;
+    }
+    .view-btn:hover {
+      background: #0056b3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .view-btn svg { flex-shrink: 0; }
+
+    /* --- FOOTER --- */
+    footer { background-color: #00bcd4; color: #fff; text-align: center; padding: 2rem 1rem; }
+    footer p { margin-bottom: 0.5rem; font-weight: 600; }
+    footer a { margin: 0 0.5rem; font-weight: 600; transition: color 0.3s, transform 0.3s; }
+    footer a svg { vertical-align: middle; margin-right: 0.3rem; }
+    footer a:hover { color: #ff9800; transform: scale(1.1); }
+
+    /* --- SCROLL SPACING --- */
+    section[id] { scroll-margin-top: 80px; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">{{ profile.name }}</div>
+  <ul>
+    <li><a href="#profile">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<header id="profile">
+  {% if profile.photo %}
+  <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" 
+       style="width:150px; height:150px; border-radius:50%; object-fit:cover; border:3px solid #00bcd4; margin-bottom:1rem; position:relative; z-index:1;">
+  {% endif %}
+  <h1>{{ profile.name }}</h1>
+  <p>{{ profile.bio }}</p>
+  <div class="contacts">
+    <a href="mailto:{{ profile.email }}">
+      <svg width="16" height="16" fill="currentColor"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-.5a.5.5 0 00-.5.5v.217l6 3.6 6-3.6V4a.5.5 0 00-.5-.5H2zm13 2.383l-5.57 3.342a.5.5 0 01-.46 0L2 5.883V12a.5.5 0 00.5.5h11a.5.5 0 00.5-.5V5.883z"/></svg>
+      Email
+    </a>
+    <a href="{{ profile.github }}" target="_blank">
+      <svg width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.074.547-.174.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.727-.497.055-.487.055-.487.803.056 1.226.825 1.226.825.714 1.223 1.872.87 2.33.666.072-.517.28-.87.508-1.07-1.777-.2-3.644-.888-3.644-3.95 0-.872.312-1.586.824-2.146-.083-.202-.357-1.016.078-2.117 0 0 .672-.215 2.2.82a7.66 7.66 0 012-.27c.68.003 1.36.092 2 .27 1.526-1.035 2.197-.82 2.197-.82.437 1.101.163 1.915.08 2.117.513.56.823 1.274.823 2.146 0 3.07-1.87 3.747-3.65 3.944.288.25.544.737.544 1.486 0 1.074-.01 1.94-.01 2.2 0 .213.145.462.55.384A8.001 8.001 0 008 0z"/></svg>
+      GitHub
+    </a>
+    <a href="{{ profile.linkedin }}" target="_blank">
+      <svg width="16" height="16" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175A1.172 1.172 0 010 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.21a1.39 1.39 0 110-2.779 1.39 1.39 0 010 2.779zm4.908 8.21V9.359c0-.998-.02-2.283-1.39-2.283-1.392 0-1.604 1.088-1.604 2.21v4.103h2.401v-4.07c0-.21.015-.42.078-.57.17-.42.557-.854 1.21-.854 1.352 0 1.899.896 1.899 2.212v3.282h.002z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      {% for project in projects %}
+        <div class="project-card">
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.description|linebreaks }}</p>
+
+          {% if project.links %}
+            <div class="project-links">
+              {% for link in project.links %}
+                <a href="{{ link }}" target="_blank" class="view-btn">
+                  <svg width="16" height="16" fill="currentColor" style="margin-right:4px;">
+                    <path d="M6.354 5.5H4a3.5 3.5 0 000 7h3a3.5 3.5 0 003.5-3.5v-.646a.5.5 0 10-1 0V9A2.5 2.5 0 017 11.5H4A2.5 2.5 0 014 6h2.354a.5.5 0 000-1zM12 4.5h-3a3.5 3.5 0 00-3.5 3.5v.646a.5.5 0 101 0V8A2.5 2.5 0 019 5.5h3A2.5 2.5 0 0112 11h-2.354a.5.5 0 100 1H12a3.5 3.5 0 000-7z"/>
+                  </svg>
+                  View Project
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image">
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>Get in touch!</p>
+  <a href="mailto:{{ profile.email }}">
+    <svg width="16" height="16" fill="currentColor"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-.5a.5.5 0 00-.5.5v.217l6 3.6 6-3.6V4a.5.5 0 00-.5-.5H2zm13 2.383l-5.57 3.342a.5.5 0 01-.46 0L2 5.883V12a.5.5 0 00.5.5h11a.5.5 0 00.5-.5V5.883z"/></svg>
+    Email
+  </a>
+  <a href="{{ profile.github }}" target="_blank">GitHub</a>
+  <a href="{{ profile.linkedin }}" target="_blank">LinkedIn</a>
+</footer>
+
+</body>
+</html>

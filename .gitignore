@@ -1,0 +1,47 @@
+# Python
+*.pyc
+__pycache__/
+
+# Django
+/staticfiles/
+/media/
+
+# VSCode, OS
+.vscode/
+.DS_Store
+
+Pipfile.lock
+db.sqlite3
+.idea/
+
+# logs
+*.log
+logs/
+npm-debug.log*
+
+# macOS
+*.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+# JetBrains
+.idea/
+*.iml
+out/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
