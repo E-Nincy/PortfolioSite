@@ -10,7 +10,7 @@ A Django-based portfolio website where you can showcase your projects, display c
 - Admin panel to manage projects.
 - Bootstrap styling for clean UI.
 - Django REST Framework API.
-- Azure DB
+- Neon DB
 
 ---
 
