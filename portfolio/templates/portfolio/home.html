@@ -134,8 +134,11 @@
 <!-- HEADER -->
 <header id="profile">
   {% if profile.photo %}
-  <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" 
-       style="width:150px; height:150px; border-radius:50%; object-fit:cover; border:3px solid #00bcd4; margin-bottom:1rem; position:relative; z-index:1;">
+    <img src="{{ profile.photo.url }}" alt="{{ profile.name }}"
+        style="width:150px; height:150px; border-radius:50%; object-fit:cover; border:3px solid #00bcd4; margin-bottom:1rem; position:relative; z-index:1;">
+  {% else %}
+    <img src="{% static 'default-avatar.png' %}" alt="{{ profile.name }}"
+        style="width:150px; height:150px; border-radius:50%; object-fit:cover; border:3px solid #00bcd4; margin-bottom:1rem; position:relative; z-index:1;">
   {% endif %}
   <h1>{{ profile.name }}</h1>
   <p>{{ profile.bio }}</p>
